@@ -30,7 +30,10 @@ func HandleMCLogsMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 			return
 		}
 
-		_, err = s.ChannelMessageSend(m.ChannelID, "Uploaded "+attachment.Filename+" to mclo.gs: "+url)
+		_, err = s.ChannelMessageSendReply(m.ChannelID, "Uploaded "+attachment.Filename+" to mclo.gs: "+url, m.Reference())
+		if err != nil {
+			LOGGER.Println("Failed to send message:", err)
+		}
 	}
 }
 
